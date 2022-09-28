@@ -9,6 +9,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// Place data object definition with struct tag annotation to instruct the json and bson encoder
+// on how the keys of the json and bson encoded output should look like.
 type Place struct {
 	ID          string   `json:"id,omitempty" bson:"_id,omitempty"`
 	UserID      string   `json:"user_id,omitempty" bson:"user_id,omitempty"`
@@ -41,6 +43,8 @@ type PlaceModel struct {
 
 func NewPlaceModel(client *mongo.Client) *PlaceModel { return &PlaceModel{client: client} }
 
+// InsertOne inserts a new document to the places collection, takes a context, database name, collection name
+// and pointer to place struct object with the data to be inserted.
 func (p PlaceModel) InsertOne(ctx context.Context, database, collection string, place *Place) error {
 	var result *mongo.InsertOneResult
 	coll := p.client.Database(database).Collection(collection)
@@ -54,6 +58,8 @@ func (p PlaceModel) InsertOne(ctx context.Context, database, collection string, 
 	return nil
 }
 
+// UpdateOne updated a specific place document in the places collection, takes a context, database name, collection name
+// and pointer to place struct objet with data to be updated.
 func (p PlaceModel) UpdateOne(ctx context.Context, database, collection string, place *Place) error {
 	var result *mongo.UpdateResult
 	coll := p.client.Database(database).Collection(collection)
@@ -70,6 +76,8 @@ func (p PlaceModel) UpdateOne(ctx context.Context, database, collection string, 
 	return nil
 }
 
+// FindOne finds a specific places document in the places collection, takes a context, database name, collection name
+// and the document id
 func (p PlaceModel) FindOne(ctx context.Context, database, collection string, placeID string) (*Place, error) {
 	var result *mongo.SingleResult
 	var place Place
@@ -81,6 +89,8 @@ func (p PlaceModel) FindOne(ctx context.Context, database, collection string, pl
 	return &place, nil
 }
 
+// List finds all places documents in the places collections, takes a context, database name, collection name
+// and filter.
 func (p PlaceModel) List(ctx context.Context, database, collection string, filter Filter) (*Places, error) {
 	opts := options.Find().SetSkip(int64(filter.Skip)).SetLimit(int64(filter.Limit))
 	coll := p.client.Database(database).Collection(database)
@@ -99,6 +109,8 @@ func (p PlaceModel) List(ctx context.Context, database, collection string, filte
 	return &places, nil
 }
 
+// DeleteOne deletes a specific place document in the places collection, takes a context, database name, collection name
+// and document id.
 func (p PlaceModel) DeleteOne(ctx context.Context, database, collection string, placeID string) error {
 	var result *mongo.DeleteResult
 	coll := p.client.Database(database).Collection(collection)
@@ -112,6 +124,8 @@ func (p PlaceModel) DeleteOne(ctx context.Context, database, collection string, 
 	return nil
 }
 
+// SearchPlace searches place documents in places collection by search term, takes a context, database name, collection name
+// search term and filter.
 func (p PlaceModel) SearchPlace(ctx context.Context, database, collection string, term string, filter Filter) (*Places, error) {
 	sort := bson.D{{Key: "score", Value: bson.D{{Key: "$meta", Value: "textScore"}}}}
 	opts := options.Find().SetSkip(int64(filter.Skip)).SetLimit(int64(filter.Limit)).SetSort(sort)
