@@ -2,9 +2,13 @@ module github.com/evansopilo/trouver
 
 go 1.19
 
-require go.mongodb.org/mongo-driver v1.10.2
+require (
+	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	go.mongodb.org/mongo-driver v1.10.2
+)
 
 require (
+	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
