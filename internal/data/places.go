@@ -97,7 +97,7 @@ func (p PlaceModel) FindOne(ctx context.Context, database, collection string, pl
 // and filter.
 func (p PlaceModel) List(ctx context.Context, database, collection string, filter Filter) (*Places, error) {
 	opts := options.Find().SetSkip(int64(filter.Skip)).SetLimit(int64(filter.Limit))
-	coll := p.client.Database(database).Collection(database)
+	coll := p.client.Database(database).Collection(collection)
 	filterCursor, err := coll.Find(ctx, bson.M{}, opts)
 	if err != nil {
 		return nil, err
@@ -132,7 +132,20 @@ func (p PlaceModel) DeleteOne(ctx context.Context, database, collection string, 
 // search term and filter.
 func (p PlaceModel) SearchPlace(ctx context.Context, database, collection string, term string, filter Filter) (*Places, error) {
 	sort := bson.D{{Key: "score", Value: bson.D{{Key: "$meta", Value: "textScore"}}}}
-	opts := options.Find().SetSkip(int64(filter.Skip)).SetLimit(int64(filter.Limit)).SetSort(sort)
+	projection := bson.D{
+		{Key: "_id", Value: 1},
+		{Key: "user_id", Value: 1},
+		{Key: "title", Value: 1},
+		{Key: "description", Value: 1},
+		{Key: "categories", Value: 1},
+		{Key: "image_url", Value: 1},
+		{Key: "phone_number", Value: 1},
+		{Key: "email", Value: 1},
+		{Key: "location", Value: 1},
+		{Key: "created_at", Value: 1},
+		{Key: "score", Value: bson.D{{Key: "$meta", Value: "textScore"}}},
+	}
+	opts := options.Find().SetSkip(int64(filter.Skip)).SetLimit(int64(filter.Limit)).SetProjection(projection).SetSort(sort)
 	filt := bson.D{{Key: "$text", Value: bson.D{{Key: "$search", Value: term}}}}
 	coll := p.client.Database(database).Collection(collection)
 	filterCursor, err := coll.Find(ctx, filt, opts)
