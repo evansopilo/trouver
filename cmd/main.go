@@ -7,7 +7,6 @@ import (
 
 	"github.com/evansopilo/trouver/internal/data"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -26,7 +25,7 @@ type Config struct {
 	// Hold configuration settings for the server, which will be read from the
 	// config file on application start-up.
 	Server struct {
-		Port int
+		Port string
 		Env  string
 	}
 	// Hold the configuration settings for the database connection pool, which
@@ -55,20 +54,8 @@ type Application struct {
 }
 
 func main() {
-	vi := viper.New()
-	vi.AddConfigPath(".")
-	vi.SetConfigName("config")
-	vi.SetConfigType("yaml")
-
-	if err := vi.ReadInConfig(); err != nil {
-		logrus.Fatal(err)
-	}
-
 	var cfg Config
-
-	if err := vi.Unmarshal(&cfg); err != nil {
-		logrus.Fatal(err)
-	}
+	loadConfig(&cfg)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
