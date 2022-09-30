@@ -4,12 +4,14 @@ go 1.19
 
 require (
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	github.com/gofiber/fiber/v2 v2.38.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/viper v1.13.0
 	go.mongodb.org/mongo-driver v1.10.2
 )
 
 require (
+	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
@@ -26,6 +28,9 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasthttp v1.40.0 // indirect
+	github.com/valyala/tcplisten v1.0.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.1 // indirect
 	github.com/xdg-go/stringprep v1.0.3 // indirect
