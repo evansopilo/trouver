@@ -1,5 +1,5 @@
 version: 1.0.0
-app: 'fiber-app-1'
+app: 'fiber-app'
 server:
   port: 8080
   env: 'development'
