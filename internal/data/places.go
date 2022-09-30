@@ -21,18 +21,22 @@ type Place struct {
 	PhoneNumber string   `json:"phone_number,omitempty" bson:"phone_number,omitempty"`
 	Email       string   `json:"email,omitempty" bson:"email,omitempty"`
 	Location    struct {
-		Address struct {
-			Street1 string `json:"street_1,omitempty" bson:"street_1,omitempty"`
-			City    string `json:"city,omitempty" bson:"city,omitempty"`
-			State   string `json:"state,omitempty" bson:"state,omitempty"`
-			ZipCode string `json:"zip_code,omitempty" bson:"zip_code,omitempty"`
-		} `json:"address,omitempty" bson:"address,omitempty"`
-		Geo struct {
-			Type        string    `json:"type,omitempty" bson:"type,omitempty"`
-			Coordinates []float64 `json:"coordinates,omitempty" bson:"coordinates,omitempty"`
-		} `json:"geo,omitempty" bson:"geo,omitempty"`
-	} `json:"location,omitempty" bson:"location,omitempty"`
+		Address Address `json:"address,omitempty"`
+		Geo     Geo     `json:"geo,omitempty"`
+	} `json:"location,omitempty"`
 	CreatedAt time.Time `json:"created_at,omitempty" bson:"created_at,omitempty"`
+}
+
+type Address struct {
+	Street1 string `json:"street_1,omitempty" bson:"street_1,omitempty"`
+	City    string `json:"city,omitempty" bson:"city,omitempty"`
+	State   string `json:"state,omitempty" bson:"state,omitempty"`
+	ZipCode string `json:"zip_code,omitempty" bson:"zip_code,omitempty"`
+}
+
+type Geo struct {
+	Type        string    `json:"type,omitempty" bson:"type,omitempty"`
+	Coordinates []float64 `json:"coordinates,omitempty" bson:"coordinates,omitempty"`
 }
 
 type Places []Place
