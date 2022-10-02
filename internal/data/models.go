@@ -28,4 +28,26 @@ type Models struct {
 		// search term and filter.
 		SearchPlace(ctx context.Context, database, collection string, term string, filter Filter) (*Places, error)
 	}
+
+	Review interface {
+		// InsertOne inserts a new document to the reviews collection, takes a context, database name, collection name
+		// and pointer to place struct object with the data to be inserted.
+		InsertOne(ctx context.Context, database, collection string, review *Review) error
+
+		// UpdateOne updates a specific review document in the reviews collection, takes a context, database name, collection name
+		// and pointer to review struct objet with data to be updated.
+		UpdateOne(ctx context.Context, database, collection string, review *Review) error
+
+		// FindOne finds a specific review document in the reviews collection, takes a context, database name, collection name
+		// and the document id
+		FindOne(ctx context.Context, database, collection string, reviewID string) (*Review, error)
+
+		// List finds all reviews documents in the reviews collections by place id, takes a context, database name
+		// collection name and filter.
+		List(ctx context.Context, database, collection string, placeID string, filter Filter) (*Reviews, error)
+
+		// DeleteOne deletes a specific review document in the reviews collection, takes a context, database name, collection name
+		// and document id.
+		DeleteOne(ctx context.Context, database, collection string, reviewID string) error
+	}
 }

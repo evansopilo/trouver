@@ -12,6 +12,11 @@ func (app *Application) Router() *fiber.App {
 		v1.Get("/places", app.ListPlace)
 		v1.Patch("/places/:place_id", app.UpdateOne)
 		v1.Delete("/places/:place_id", app.DeletePlace)
+
+		v1.Post("/reviews", app.CreateReview)
+		v1.Get("/places/:place_id/reviews", app.ListReview)
+		v1.Patch("/reviews/:review_id", app.UpdateReview)
+		v1.Delete("/reviews/:review_id", app.DeleteReview)
 	}
 	return api
 }
