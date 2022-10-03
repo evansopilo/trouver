@@ -1,6 +1,11 @@
 package data
 
-import "context"
+import (
+	"context"
+
+	firebase "firebase.google.com/go/v4"
+	"firebase.google.com/go/v4/auth"
+)
 
 type Models struct {
 	Place interface {
@@ -49,5 +54,34 @@ type Models struct {
 		// DeleteOne deletes a specific review document in the reviews collection, takes a context, database name, collection name
 		// and document id.
 		DeleteOne(ctx context.Context, database, collection string, reviewID string) error
+	}
+
+	Auth interface {
+		// VerifyIDToken verifys a token id, takes context, firebase app and id token.
+		VerifyIDToken(ctx context.Context, app *firebase.App, idToken string) (*auth.Token, error)
+
+		// RevokeRefreshTokens revokes refresh token associated by a user account, takes context, firebase app and user uid.
+		RevokeRefreshTokens(ctx context.Context, app *firebase.App, uid string) error
+
+		// GetUser gets user by id, takes context, firebase app and user uid.
+		GetUser(ctx context.Context, app *firebase.App, uid string) (*auth.UserRecord, error)
+
+		// GetUserByEmail gets user by email, takes context, firebase app and email.
+		GetUserByEmail(ctx context.Context, app *firebase.App, email string) (*auth.UserRecord, error)
+
+		// GetUserByPhone gets user by phone, takes context, firebase app and phone.
+		GetUserByPhone(ctx context.Context, app *firebase.App, phone string) (*auth.UserRecord, error)
+
+		// CreateUser creates a new user, takes a context, firebase app and user object.
+		CreateUser(ctx context.Context, app *firebase.App, user *User) (*auth.UserRecord, error)
+
+		// UpdateUser updates an existing user, takes context, firebase app and user object.
+		UpdateUser(ctx context.Context, app *firebase.App, user *User) (*auth.UserRecord, error)
+
+		// DeleteUser delete a user by id, takes a context, firebase app and user uid.
+		DeleteUser(ctx context.Context, app *firebase.App, uid string) error
+
+		// CustomClaimsSet sets custom claims to a user, takes context firebase app, uid and claims map.
+		CustomClaimsSet(ctx context.Context, app *firebase.App, uid string, claims map[string]interface{}) error
 	}
 }
