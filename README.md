@@ -11,8 +11,33 @@ Development practices is based on guiding principles of well written Go code.
 * Correctness
 * Productivity
 
-## Prerequisites
-You'll need to install these softwares and tools on your machine:
-* Go 1.19.1 or older
-* MongoDB database (version 4.0.28 or newer)
-* make utility
+## Dependencies :couple:
+
+Application:
+
+| Tool/Library | Version |
+| -------------- | --------- |
+| Go           | 1.19.1 or older |
+| MongoDB      | (version 4.0.28 or newer) |
+
+View the complete list of app dependencies in the [go.mod](./go.mod).
+
+Deployment:
+
+
+| Tool/Library | Version |
+| -------------- | --------- |
+| Go           | ^1.13.8 |
+| MongoDB      | ^4.4.12 |
+
+## Bugs or improvements
+
+Feel free to report any bugs or improvements. Pull requests are always welcome.
+
+## Author :black_nib:
+
+- **Evans M Opilo** - [evansopilo](https://github.com/evansopilo)
+
+## License :lock:
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
